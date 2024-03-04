@@ -44,5 +44,9 @@ void readAMP(FILE* pf, char * song_filename){
 }
 
 void closeAMP(FILE* pf){
-    fclose(pf);
+    if (pf){
+        fclose(pf);
+    }else{
+        printf("The file doesn't exist.");
+    }
 }
