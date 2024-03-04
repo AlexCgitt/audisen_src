@@ -56,7 +56,7 @@ void readAMP(FILE* pf, char * song_filename){
     char under[1] = "_";
 
     for (int i=0; i<MAX_SONGNAME_SIZE; i++){
-        if(chaine[i] == ' ' | chaine[i] == '\''){
+        if(chaine[i] == ' ' | chaine[i] == '\'' | chaine[i] == '-'){
             strncat(without_caract, (const char *) &under, 1);
         }else{
             strncat(without_caract, &chaine[i], 1);
