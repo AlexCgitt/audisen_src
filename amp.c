@@ -80,12 +80,16 @@ void closeAMP(FILE* pf){
     }
 }
 
+/**
+ *  to test amp.c
+ * @return string
+ */
+
 int main() {
     FILE* fichier = initAMP("ma_playlist.amp");
     if (fichier != NULL) {
         char nom_chanson[MAX_SONGNAME_SIZE];
         readAMP(fichier, nom_chanson);
-        // Utilisez nom_chanson ou faites autre chose avec le contenu lu
         closeAMP(fichier);
     } else {
         printf("Erreur lors de l'ouverture du fichier.\n");
