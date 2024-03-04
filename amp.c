@@ -19,7 +19,7 @@ FILE* initAMP(char* filename){
     FILE * pf = NULL;
     pf = fopen(filename, "r");
 
-    if (pf != NULL){
+    if (pf == NULL){
         printf("Erreur\n");
     }
     return pf;
@@ -52,15 +52,17 @@ void readAMP(FILE* pf, char * song_filename){
         fgets(chaine, MAX_SONGNAME_SIZE, pf);
     }
 
-    char without_caract;
+    char without_caract[MAX_SONGNAME_SIZE] = "";
+    char under[1] = "_";
+
     for (int i=0; i<MAX_SONGNAME_SIZE; i++){
         if(chaine[i] == ' ' | chaine[i] == '\''){
-            without_caract += '_';
+            strncat(without_caract, &under, 1);
         }else{
-            without_caract += chaine[i];
+            strncat(without_caract, &chaine[i], 1);
         }
     }
-    strtolower(song_filename, chaine);
+    strtolower(song_filename, without_caract);
     printf("%s", song_filename);
 }
 
