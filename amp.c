@@ -40,8 +40,15 @@ void readAMP(FILE* pf, char * song_filename){
     }
 }
 
-char del_space(char song){
-    char
+char del_space(char* song){
+    char without_space;
+    for (int i=0; i<MAX_SONGNAME_SIZE; i++){
+        if(song[i] == ' '){
+            without_space += '_';
+        }else{
+            without_space += song[i];
+        }
+    }
 }
 
 /**
