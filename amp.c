@@ -57,7 +57,7 @@ void readAMP(FILE* pf, char * song_filename){
 
     for (int i=0; i<MAX_SONGNAME_SIZE; i++){
         if(chaine[i] == ' ' | chaine[i] == '\''){
-            strncat(without_caract, &under, 1);
+            strncat(without_caract, (const char *) &under, 1);
         }else{
             strncat(without_caract, &chaine[i], 1);
         }
@@ -78,4 +78,17 @@ void closeAMP(FILE* pf){
     }else{
         printf("The file doesn't exist.");
     }
+}
+
+int main() {
+    FILE* fichier = initAMP("ma_playlist.amp");
+    if (fichier != NULL) {
+        char nom_chanson[MAX_SONGNAME_SIZE];
+        readAMP(fichier, nom_chanson);
+        // Utilisez nom_chanson ou faites autre chose avec le contenu lu
+        closeAMP(fichier);
+    } else {
+        printf("Erreur lors de l'ouverture du fichier.\n");
+    }
+    return 0;
 }
