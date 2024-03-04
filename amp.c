@@ -26,35 +26,45 @@ FILE* initAMP(char* filename){
 }
 
 /**
+ * Transform the capital letter of a string in lower letter
+ * https://koor.fr/C/cctype/tolower.wp
+ * @param dest : destination
+ * @param src : source
+ * @return
+ */
+char * strtolower(char * dest, const char * src ) {
+    char * result = dest;
+    while(*dest++ = tolower( *src++ ));
+    return result;
+}
+
+/**
  * consiste à lire une ligne du fichier pointé par pf et renvoie chaine de caractère
  * on remplace espace " " par "_" et on ne doit pas avoir deux "__"
  * dès que le ficher est lu (est terminé), renvoie NULL (plus de titre à lire)
  * @param pf
  * @param song_filename
  */
-
 void readAMP(FILE* pf, char * song_filename){
+    char chaine[MAX_SONGNAME_SIZE] = "";
 
+    if (pf != NULL){
+        fgets(chaine, MAX_SONGNAME_SIZE, pf);
+    }
 
-}
-
-char del_space(char* song){
     char without_caract;
     for (int i=0; i<MAX_SONGNAME_SIZE; i++){
-        if(song[i] == ' ' | song[i] == '\''){
+        if(chaine[i] == ' ' | chaine[i] == '\''){
             without_caract += '_';
         }else{
-            without_caract += song[i];
+            without_caract += chaine[i];
         }
     }
-    return without_caract;
+    strtolower(song_filename, chaine);
+    printf("%s", song_filename);
 }
 
-char * strtolower( char * dest, const char * src ) {
-    char * result = dest;
-    while( *dest++ = tolower( *src++ ) );
-    return result;
-}
+
 
 /**
  * Close the file pf if it exists
