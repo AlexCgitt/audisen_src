@@ -1,5 +1,5 @@
 /**
- * @authors CAVARO Alexandre RIOU Margot 2 Caen
+ * @authors Cavaro Alexandre Riou Margot Groupe 2 Caen
  */
 
 #include "define.h"
@@ -16,7 +16,8 @@
 
 FILE* initAMP(char* filename){
     FILE * pf = NULL;
-    pf = fopen("playlist.amp", "r+");
+    pf = fopen(filename, "r");
+
     if (pf != NULL){
         printf("Erreur\n");
     }
@@ -37,12 +38,16 @@ void readAMP(FILE* pf, char * song_filename){
     if (fgets(buffer, sizeof(buffer), fichier) != NULL) {
         printf("Contenu du fichier : %s", buffer);
     }
-
-
-
-
 }
 
+char del_space(char song){
+    char
+}
+
+/**
+ * Close the file pf if it exists
+ * @param pf : the file we want to close
+ */
 void closeAMP(FILE* pf){
     if (pf){
         fclose(pf);

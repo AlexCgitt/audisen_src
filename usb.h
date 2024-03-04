@@ -1,5 +1,5 @@
 /**
- * @authors Nom Prenom Nom Prenom Groupe Ville
+ * @authors Cavaro Alexandre Riou Margot Groupe 2 Caen
  */
 
 #ifndef AUDISEN_USB_H
