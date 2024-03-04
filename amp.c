@@ -4,6 +4,7 @@
 
 #include "define.h"
 #include "amp.h"
+#include <ctype.h>
 
 /**
  * pour ce renseigner plus en détail, ne pas hésiter à aller regarder
@@ -34,21 +35,25 @@ FILE* initAMP(char* filename){
 
 void readAMP(FILE* pf, char * song_filename){
 
-    char buffer[100];
-    if (fgets(buffer, sizeof(buffer), fichier) != NULL) {
-        printf("Contenu du fichier : %s", buffer);
-    }
+
 }
 
 char del_space(char* song){
-    char without_space;
+    char without_caract;
     for (int i=0; i<MAX_SONGNAME_SIZE; i++){
-        if(song[i] == ' '){
-            without_space += '_';
+        if(song[i] == ' ' | song[i] == '\''){
+            without_caract += '_';
         }else{
-            without_space += song[i];
+            without_caract += song[i];
         }
     }
+    return without_caract;
+}
+
+char * strtolower( char * dest, const char * src ) {
+    char * result = dest;
+    while( *dest++ = tolower( *src++ ) );
+    return result;
 }
 
 /**
