@@ -30,6 +30,7 @@ void createInitFrame(s_song mySong, char* frame){
     content[index+1] = mySong.tpm;
     content[index+3] = mySong.nTicks;
 
+    printf("le tmp ===> %d\n", mySong.tpm);
     int checksum = content[0];
 
     for(int i=1; i<TICK_FRAME_SIZE; i++){
