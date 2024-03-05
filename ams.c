@@ -52,33 +52,43 @@ s_song readAMS(char* fileName){
     /*compteur pour récuperer le nombre total de ligne*/
     /* EOF == end of file */
     int cmpt = 0;
-    char c;
+    /*char c;
 
     while ((c = fgetc(file)) != EOF){
         if(c == '\n') ++cmpt;
     }
 
-    mySong.nTicks = cmpt;
+    mySong.nTicks = cmpt; */
+
 
     char d[] = "|";
-    for(int i = 0; i<cmpt+4; i++){
-        if(i>= 4){
-            fgets(buffer, MAX_SIZE_LINE, file);
-            char * ca = strtok(buffer, d);
-            int chap = 0;
-            int note = 0;
-            while (ca != NULL) {
-                printf("LE CA =====> %s", ca);
-                if (ca[0] == '^' || ca[0] == 'x') {
-                    mySong.tickTab[i - 4].note[note] = chap;
-                    note++;
-                }
-                chap++;
-                ca = strtok(NULL, d);
-            }
+    int cmpt_ch = 0;
 
+
+    while (fgets(buffer, MAX_SIZE_LINE, file)){
+        cmpt ++;
+        char * ca = strtok(buffer, d);
+        cmpt_ch = 0;
+        int chap = 0;
+        mySong.tickTab[cmpt - 1].accent = 0;
+        while (ca != NULL){
+            if (ca[0] == '^' || ca[0] == 'x'){
+                if(ca[0] == '^'){
+                    mySong.tickTab[cmpt - 2].accent = 1;
+                }
+                mySong.tickTab[cmpt - 2].note[cmpt_ch] = chap;
+                cmpt_ch++;
+            }
+            ca = strtok(NULL, d);
+            chap ++;
         }
     }
+    mySong.nTicks = cmpt - 1;
+
+
+/* mettre -2 à mon cmpt */
+
+
 
 	return mySong;
 
@@ -103,7 +113,7 @@ int test_ams() {
     printf("Nombre de Ticks : %d\n", song.nTicks);
 
     for (int i = 0; i < song.nTicks; i++) {
-        printf("%d\t %d\t %d\t %d\t %d\n",
+        printf(" %d\t %d\t %d\t %d\t %d\n",
                song.tickTab[i].accent,
                song.tickTab[i].note[0],
                song.tickTab[i].note[1],
