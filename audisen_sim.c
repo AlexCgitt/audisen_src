@@ -22,5 +22,7 @@ int main(){
 
     //testFrame();
 
+    testReadAMS();
+
     return 0;
 }

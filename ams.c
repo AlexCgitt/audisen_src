@@ -14,6 +14,7 @@
  * for the tpm it's better to use a fscanf (see the open classroom doc) to recup nmb in a line
  * for the nTick, we make a while till the end of the file - 4
  * for the tick table, utilisation of strtok (see https://www.youtube.com/watch?v=nrO_pXGZc3Y on ytb)
+ * utilisation of compt to get .accent and .note
  * if the file can't be read, return struct with empty title ("") and '0' on all other content
  * doc src = https://zestedesavoir.com/tutoriels/755/le-langage-c-1/1043_aggregats-memoire-et-fichiers/4279_structures/
  * doc src = https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions
@@ -40,11 +41,11 @@ s_song readAMS(char* fileName){
 
     /* recuperation of the title */
     fgets(mySong.title, MAX_SIZE_TITLE, file);
-
+    mySong.title[strlen(mySong.title)-1] = '\0';
     /* recupération tpm */
     /* more simple to get a number (see openclassroom doc) */
     fscanf(file, "%d\n", &mySong.tpm);
-    mySong.tpm *= 2;
+    //mySong.tpm *= 2;
 
     /*recupertion of nTicks and tickTab */
     /*cmpt to recup total number in line */
@@ -113,7 +114,7 @@ int test_ams() {
 }
 
 /**
- *
+ * creation of an electronic partition (<chanson>.ams) from a simplify partition (<chanson>.txt)
  * @param txtFileName
  * @param amsFileName :
  */
