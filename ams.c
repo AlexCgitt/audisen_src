@@ -128,13 +128,9 @@ void createAMS(char* txtFileName, char* amsFileName){
 
     char buffer[MAX_SIZE_LINE];
 
+
     /* prendre le titre
     fgets(buffer, MAX_SIZE_LINE, from);
-    fputs(buffer, to);
-
-
-
-
-
+    fputs(buffer, to);*/
 
 }
