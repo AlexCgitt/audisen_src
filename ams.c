@@ -92,7 +92,6 @@ s_song readAMS(char* fileName){
 int test_ams() {
     char fileName[] = "bohemian_rhapsody.ams";
 
-    printf("test");
 
     // Lire les informations du fichier AMS
     s_song song = readAMS(fileName);
