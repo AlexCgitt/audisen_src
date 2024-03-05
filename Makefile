@@ -23,11 +23,14 @@ ams.o: ams.c ams.h define.h
 usb.o:usb.c usb.h define.h
 	gcc -Wall -c usb.c -o usb.o
 
+autotests.o:autotests.c autotests.h
+	gcc -Wall -c autotests.c -o autotests.o
+
 audisen_usb.out: audisen_usb.c
 	gcc audisen_usb.c -o audisen_usb.out
 
-audisen_sim.out: audisen_sim.c frame.o ams.o amp.o
-	gcc audisen_sim.c frame.o ams.o amp.o -o audisen_sim.out
+audisen_sim.out: audisen_sim.c frame.o ams.o amp.o autotests.o
+	gcc audisen_sim.c frame.o ams.o amp.o autotests.o -o audisen_sim.out
 
 
 

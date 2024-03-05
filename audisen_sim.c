@@ -7,6 +7,7 @@
 #include "frame.h"
 #include "amp.h"
 #include "define.h"
+#include "autotests.h"
 
 
 int main(){
@@ -18,6 +19,8 @@ int main(){
     //test_ams();
 
     test_frame();
+
+    //testReadAMP();
 
     return 0;
 }

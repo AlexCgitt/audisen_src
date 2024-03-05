@@ -28,15 +28,16 @@ void createInitFrame(s_song mySong, char* frame){
     content[index] = caractere[0];
     content[index+2] = caractere[0];
     content[index+1] = mySong.tpm;
-    content[index+3] = mySong.nTicks;
+    content[index+3] = '16';
 
-    printf("le tmp ===> %d\n", mySong.tpm);
+
     int checksum = content[0];
 
+    printf("- %c -\n", content[0]);
     for(int i=1; i<TICK_FRAME_SIZE; i++){
         checksum ^= content[i] ;
-        printf("%c\n", content[i]);
-        frame[i+1] = content[i];
+        printf("- %c -\n", content[i]);
+        frame[i] = content[i-1];
     }
 
     printf("Le checksum =>\n");
@@ -92,10 +93,8 @@ void createTickFrame(s_tick myTick, char* frame){
 
 
 void test_frame(){
-    printf("test de la frame\n");
 
     s_song mySong = readAMS("bohemian_rhapsody.ams");
-    printf("apres le read\n");
     char frame[INIT_FRAME_MAX_SIZE];
 
     createInitFrame(mySong, frame);
