@@ -18,11 +18,11 @@ int main(){
 
     //test_ams();
 
-    test_frame();
+    //test_frame();
 
-    //testFrame();
+    testFrame();
 
-    testReadAMS();
+    //testReadAMS();
 
     return 0;
 }

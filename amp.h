@@ -14,6 +14,8 @@ void readAMP(FILE* pf, char * song_filename);
 
 void closeAMP(FILE* pf);
 
+char * strtolower(char * dest, const char * src );
+
 int test_amp();
 
 #endif //AUDISEN2024_AMP_H

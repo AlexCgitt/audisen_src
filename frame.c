@@ -9,6 +9,7 @@
 #include "frame.h"
 #include "define.h"
 #include "ams.h"
+#include "amp.h"
 
 
 /**
@@ -18,19 +19,23 @@
  */
 void createInitFrame(s_song mySong, char* frame){
     char content[INIT_FRAME_MAX_SIZE];
+    char title[]="";
+
+    //strtolower(title, mySong.title);
 
     sprintf(content,"%s,%d,%d", mySong.title, mySong.tpm, mySong.nTicks);
 
+
     int checksum = 0;
 
-    for(int i=1; i< strlen(content); i++){
+    for(int i=0; i<strlen(content); i++){
         checksum ^= content[i] ;
     }
 
     printf("Le checksum =>\n");
-    printf("%d\n", checksum);
+    printf("%02x\n", checksum);
 
-    sprintf(frame, "#%s*%d\r\n\0", content, checksum);
+    sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
 
     printf("%s\n", frame);
 
@@ -44,11 +49,7 @@ void createInitFrame(s_song mySong, char* frame){
 void createTickFrame(s_tick myTick, char* frame){
     char content[TICK_FRAME_SIZE];
 
-    printf("avant le truc\n");
-
     sprintf(content,"0,%d,%d,%d,%d,%d", myTick.accent, myTick.note[0], myTick.note[1], myTick.note[2], myTick.note[3]);
-
-    printf("apres\n");
 
     int checksum = 0;
 
@@ -59,7 +60,7 @@ void createTickFrame(s_tick myTick, char* frame){
     printf("Le checksum =>\n");
     printf("%d\n", checksum);
 
-    sprintf(frame, "#%s*%d\r\n\0", content, checksum);
+    sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
 
     printf("%s", frame);
 
@@ -70,7 +71,14 @@ void test_frame(){
     printf("debut du test frame\n");
 
     s_song mySong = readAMS("bohemian_rhapsody.ams");
+    s_tick myTick;
     char frame[MAX_SIZE_TITLE];
 
-    createInitFrame(mySong, frame);
+    myTick.accent = 1;
+    myTick.note[0]=11;
+    myTick.note[1]=23;
+    myTick.note[2]=27;
+    myTick.note[3]=34;
+
+    createTickFrame(myTick, frame);
 }
