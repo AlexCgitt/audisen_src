@@ -17,31 +17,32 @@
  * @param frame
  */
 void createInitFrame(s_song mySong, char* frame){
-    char coma[1] = ",";
+    char caractere[] = ",#*";
 
     int content[TICK_FRAME_SIZE];
     int index = 0;
     for(int i= 0; i< strlen(mySong.title); i++){
         content[i] = mySong.title[i];
-        index++;
+        index = i-1;
     }
-    content[index] = atoi(coma);
-    content[index+2] = atoi(coma);
+    content[index] = caractere[0];
+    content[index+2] = caractere[0];
     content[index+1] = mySong.tpm;
     content[index+3] = mySong.nTicks;
 
-    int checksum = 0;
+    int checksum = content[0];
 
-    for(int i=0; i<TICK_FRAME_SIZE; i++){
+    for(int i=1; i<TICK_FRAME_SIZE; i++){
         checksum ^= content[i] ;
+        printf("%c\n", content[i]);
         frame[i+1] = content[i];
     }
 
     printf("Le checksum =>\n");
     printf("%d\n", checksum);
 
-    frame[0] = (int)"#";
-    frame[-3] = (int)"*";
+    frame[0] = caractere[1];
+    frame[-3] = caractere[2];
     frame[-2] = checksum;
     frame[-1] = (int)"\r\n\0";
 
