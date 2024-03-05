@@ -15,9 +15,9 @@ int main(){
 
     //test_amp();
 
-    //test_ams();
+    test_ams();
 
-    test_frame();
+    //test_frame();
 
     return 0;
 }

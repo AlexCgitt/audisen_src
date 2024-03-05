@@ -11,8 +11,12 @@
  * in the ams file, we have all the information (title in the first line, tpm in the second line, nTick in the third line, and tickTab
  * we need to use fgets
  * for the title we just need to use a fgets (see the open classroom doc) to get a line with a string
+ * for the tpm it's better to use a fscanf (see the open classroom doc) to recup nmb in a line
+ * for the nTick, we make a while till the end of the file - 4
+ * for the tick table, utilisation of strtok (see https://www.youtube.com/watch?v=nrO_pXGZc3Y on ytb)
  * if the file can't be read, return struct with empty title ("") and '0' on all other content
  * doc src = https://zestedesavoir.com/tutoriels/755/le-langage-c-1/1043_aggregats-memoire-et-fichiers/4279_structures/
+ * doc src = https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions
  * initialise un tableau à 0 en c src = https://www.delftstack.com/fr/howto/c/c-initialize-array-to-0/
  * @param fileName
  * @return
@@ -32,12 +36,7 @@ s_song readAMS(char* fileName){
         return mySong;
     }
 
-
-    /* to stop a line */
     char buffer[MAX_SIZE_LINE];
-
-
-    /* pour utiliser fgets : read the doc  : https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions */
 
     /* recuperation of the title */
     fgets(mySong.title, MAX_SIZE_TITLE, file);
@@ -59,10 +58,11 @@ s_song readAMS(char* fileName){
         char * ca = strtok(buffer, d);
         cmpt_ch = 0;
         int chap = 0;
-        mySong.tickTab[cmpt - 1].accent = 0;
         while (ca != NULL){
+            /*ca[0] to get the first element*/
             if (ca[0] == '^' || ca[0] == 'x'){
                 if(ca[0] == '^'){
+                    /* -2 because they are 2 line over the table*/
                     mySong.tickTab[cmpt - 2].accent = 1;
                 }
                 mySong.tickTab[cmpt - 2].note[cmpt_ch] = chap;
@@ -72,6 +72,7 @@ s_song readAMS(char* fileName){
             chap ++;
         }
     }
+    /* -1 because our  cmpt start at 0*/
     mySong.nTicks = cmpt - 1;
 
 
