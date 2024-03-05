@@ -120,5 +120,21 @@ int test_ams() {
  */
 void createAMS(char* txtFileName, char* amsFileName){
 
+    s_song NewSong;
+    FILE * from = NULL;
+    FILE * to = NULL;
+    from = fopen(txtFileName, "r");
+    to = fopen(amsFileName, "w");
+
+    char buffer[MAX_SIZE_LINE];
+
+    /* prendre le titre
+    fgets(buffer, MAX_SIZE_LINE, from);
+    fputs(buffer, to);
+
+
+
+
+
 
 }
