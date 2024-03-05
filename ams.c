@@ -8,10 +8,9 @@
 /**
  * readAMS() read the file name filename and return a struct of s_song type with all the information about song.
  * information = tick in a minute, total tick, music title, tick title
- * in the ams file, we have all the information (title i the first line, tpm in the second line
- * to know nTicks, we make total line - 4
- * TICK TAB A VOIR
+ * in the ams file, we have all the information (title in the first line, tpm in the second line, nTick in the third line, and tickTab
  * we need to use fgets
+ * for the title we just need to use a fgets (see the open classroom doc) to get a line with a string
  * if the file can't be read, return struct with empty title ("") and '0' on all other content
  * doc src = https://zestedesavoir.com/tutoriels/755/le-langage-c-1/1043_aggregats-memoire-et-fichiers/4279_structures/
  * initialise un tableau à 0 en c src = https://www.delftstack.com/fr/howto/c/c-initialize-array-to-0/
@@ -22,7 +21,7 @@
 s_song readAMS(char* fileName){
 	
 	s_song mySong;
-    FILE * file = NULL; /* potentiellement a mettre en commentaire mais important pour l'initialisation */
+    FILE * file = NULL;
     file = fopen(fileName, "r");
     if (file == NULL){
         mySong.tpm = 0;
@@ -39,7 +38,6 @@ s_song readAMS(char* fileName){
 
 
     /* pour utiliser fgets : read the doc  : https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions */
-    /*we gonna recup the first information with fgets and after we're going to use the while */
 
     /* recuperation of the title */
     fgets(mySong.title, MAX_SIZE_TITLE, file);
@@ -47,20 +45,11 @@ s_song readAMS(char* fileName){
     /* recupération tpm */
     /* more simple to get a number (see openclassroom doc) */
     fscanf(file, "%d\n", &mySong.tpm);
+    mySong.tpm *= 2;
 
-    /*récupértion nTicks */
-    /*compteur pour récuperer le nombre total de ligne*/
-    /* EOF == end of file */
+    /*recupertion of nTicks and tickTab */
+    /*cmpt to recup total number in line */
     int cmpt = 0;
-    /*char c;
-
-    while ((c = fgetc(file)) != EOF){
-        if(c == '\n') ++cmpt;
-    }
-
-    mySong.nTicks = cmpt; */
-
-
     char d[] = "|";
     int cmpt_ch = 0;
 
@@ -86,9 +75,6 @@ s_song readAMS(char* fileName){
     mySong.nTicks = cmpt - 1;
 
 
-/* mettre -2 à mon cmpt */
-
-
 
 	return mySong;
 
@@ -111,7 +97,7 @@ int test_ams() {
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
     printf("Nombre de Ticks : %d\n", song.nTicks);
-
+    printf("Tableau de tick : \n");
     for (int i = 0; i < song.nTicks; i++) {
         printf(" %d\t %d\t %d\t %d\t %d\n",
                song.tickTab[i].accent,
