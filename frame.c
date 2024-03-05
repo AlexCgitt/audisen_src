@@ -17,32 +17,33 @@
  * @param frame
  */
 void createInitFrame(s_song mySong, char* frame){
-	// The content
-    char tempo = (char)mySong.tpm;
-    char tick = (char)mySong.nTicks;
     char coma[1] = ",";
-    char hach[1] = "#";
-    char star[1] = "*";
-    char end[] = "<CR><LF>\0";
 
-    char *content = "";
-    content = strcat(content, mySong.title);
-    content= strcat(content, coma);
-    content = strcat(content, &tempo);
-    content = strcat(content, coma);
-    content = strcat(content, &tick);
+    int content[TICK_FRAME_SIZE];
+    int index = 0;
+    for(int i= 0; i< strlen(mySong.title); i++){
+        content[i] = mySong.title[i];
+        index++;
+    }
+    content[index] = atoi(coma);
+    content[index+2] = atoi(coma);
+    content[index+1] = mySong.tpm;
+    content[index+3] = mySong.nTicks;
+
     int checksum = 0;
 
-    for(int i=0; i<strlen(content)-1; i++){
-        checksum += content[i] ^ content[i+1];
+    for(int i=0; i<TICK_FRAME_SIZE; i++){
+        checksum ^= content[i] ;
+        frame[i+1] = content[i];
     }
-    char check = (char) checksum;
 
-    frame = strcat(frame, hach);
-    frame = strcat(frame, content);
-    frame = strcat(frame, star);
-    frame = strcat(frame, &check);
-    frame = strcat(frame, end);
+    printf("Le checksum =>\n");
+    printf("%d\n", checksum);
+
+    frame[0] = (int)"#";
+    frame[-3] = (int)"*";
+    frame[-2] = checksum;
+    frame[-1] = (int)"\r\n\0";
 
     printf("%s", frame);
 
@@ -55,7 +56,7 @@ void createInitFrame(s_song mySong, char* frame){
  */
 void createTickFrame(s_tick myTick, char* frame){
     char zero[] = "0";
-    char accent = myTick.accent;
+    char accent = (char)myTick.accent;
     char coma[1] = ",";
     char hach[1] = "#";
     char star[1] = "*";
@@ -92,7 +93,8 @@ void test_frame(){
     printf("test de la frame\n");
 
     s_song mySong = readAMS("bohemian_rhapsody.ams");
-    char frame[] = "";
+    printf("apres le read\n");
+    char frame[INIT_FRAME_MAX_SIZE];
 
     createInitFrame(mySong, frame);
 }
