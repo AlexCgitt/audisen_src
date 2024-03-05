@@ -76,10 +76,7 @@ s_song readAMS(char* fileName){
     /* -1 because our  cmpt start at 0*/
     mySong.nTicks = cmpt - 1;
 
-
-
 	return mySong;
-
 
 }
 
@@ -124,13 +121,64 @@ void createAMS(char* txtFileName, char* amsFileName){
     FILE * from = NULL;
     FILE * to = NULL;
     from = fopen(txtFileName, "r");
+    if (from == NULL){
+        printf("Error file not found ! \n");
+        exit(0);
+    }
     to = fopen(amsFileName, "w");
+    if (to == NULL){
+        printf("Error file not found ! \n");
+        exit(0);
+    }
 
     char buffer[MAX_SIZE_LINE];
 
-    /* prendre le titre
+    /* get the title from the txt file to the ams file */
     fgets(buffer, MAX_SIZE_LINE, from);
     fputs(buffer, to);
+
+    /* get the tempo of the music */
+    fgets(buffer, MAX_SIZE_LINE, from);
+    fputs(buffer, to);
+
+    /* line break */
+    fgets(buffer, MAX_SIZE_LINE, from);
+
+    /* line with from 01 to */
+    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 ";
+    fputs(ligne_nombre, to);
+
+    /* line of octave and  notes */
+    // TODO voir pour le nombre de lignes
+    /* notes:
+        A = 10
+        B = 12
+        C = 1
+        D = 3
+        E = 4
+        F = 6
+        G = 8
+    */
+
+    int tab_notes[7] = {10,12,1,3,4,6,8};
+
+    while(fgets(buffer, MAX_SIZE_LINE, from)){
+        //lit 1 caractère => association à une note
+        //2e carcatère => indique l'octave
+        //3e verif diez ? si oui +1 à la val note
+        // ===> recup valeur case de tableau de 60
+    }
+
+
+
+
+/*
+pour resoudre le pb d'affichage
+fgets(buffer, ___, pf)
+buffer[l-2] = \n
+buffer[l-1] = \0
+*/
+
 
 
 
