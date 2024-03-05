@@ -74,6 +74,7 @@ void createTickFrame(s_tick myTick, char* frame){
     for(int i=0; i<strlen(content)-1; i++){
         checksum += content[i] ^ content[i+1];
     }
+
     char check = (char) checksum;
     frame = strcat(frame, hach);
     frame = strcat(frame, content);
@@ -83,4 +84,18 @@ void createTickFrame(s_tick myTick, char* frame){
     frame = strcat(frame, end);
 
     printf(frame);
+}
+
+int main() {
+    s_song mySong;
+    char* frame;
+    char title[] = "Bohemian Rapsody";
+    for (int i=0; i< strlen(title); i++){
+        mySong.title[i] = title[i];
+    }
+    mySong.title[strlen(title)] = '\0';
+    mySong.tpm = 144;
+    mySong.nTicks = 16;
+
+    createInitFrame(mySong, frame);
 }

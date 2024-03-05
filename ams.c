@@ -28,7 +28,7 @@ s_song readAMS(char* fileName){
         mySong.tpm = 0;
         mySong.nTicks = 0;
         mySong.title[0] = '\0';
-        memset(mySong.tickTab, 0, sizeof (mySong.tickTab));
+        memset(mySong.tickTab, 0, sizeof (mySong.tickTab)); // Initialize an empty table
         /*memset(variable de pointage vers le bloc de mémoire à remplir, valeur a définir, nombre d’octets à mettre à la valeur.)*/
         return mySong;
     }
@@ -75,10 +75,13 @@ s_song readAMS(char* fileName){
 int main() {
     char fileName[] = "bohemian_rhapsody.ams";
 
+    printf("test");
+
     // Lire les informations du fichier AMS
     s_song song = readAMS(fileName);
 
     // Affichage des informations récupérées
+
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
     /*printf("Ticks :\n");
