@@ -89,7 +89,7 @@ s_song readAMS(char* fileName){
 
 //test
 
-int main() {
+int test_ams() {
     char fileName[] = "bohemian_rhapsody.ams";
 
     printf("test");

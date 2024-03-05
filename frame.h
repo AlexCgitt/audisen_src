@@ -22,5 +22,6 @@
 
 void createInitFrame(s_song mySong, char* frame);
 void createTickFrame(s_tick myTick, char* frame);
+void test_frame();
 
 #endif //AUDISEN2024_FRAME_H

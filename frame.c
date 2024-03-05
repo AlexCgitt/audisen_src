@@ -87,7 +87,10 @@ void createTickFrame(s_tick myTick, char* frame){
     printf("%s",frame);
 }
 
-int main() {
+
+void test_frame(){
+    printf("test de la frame");
+
     s_song mySong = readAMS("bohemian_rhapsody.ams");
     char frame[] = "";
 

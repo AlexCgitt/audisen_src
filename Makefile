@@ -26,8 +26,8 @@ usb.o:usb.c usb.h define.h
 audisen_usb.out: audisen_usb.c
 	gcc audisen_usb.c -o audisen_usb.out
 
-audisen_sim.out: audisen_sim.c
-	gcc audisen_sim.c -o audisen_sim.out
+audisen_sim.out: audisen_sim.c frame.o ams.o amp.o
+	gcc audisen_sim.c frame.o ams.o amp.o -o audisen_sim.out
 
 
 

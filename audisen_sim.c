@@ -3,11 +3,20 @@
  */
 
 #include <stdio.h>
+#include "ams.h"
+#include "frame.h"
+#include "amp.h"
+#include "define.h"
 
 
 int main(){
     printf("Demarrage du projet AUDISEN\n");
 
+    //test_amp();
+
+    //test_ams();
+
+    test_frame();
 
     return 0;
 }

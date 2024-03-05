@@ -85,7 +85,7 @@ void closeAMP(FILE* pf){
  * @return string
  */
 
-int main() {
+int test_amp() {
     FILE* fichier = initAMP("ma_playlist.amp");
     if (fichier != NULL) {
         char nom_chanson[MAX_SONGNAME_SIZE];
