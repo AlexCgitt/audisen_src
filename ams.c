@@ -46,7 +46,18 @@ s_song readAMS(char* fileName){
     fgets(mySong.title, MAX_SIZE_TITLE, file);
 
     /* recupération tpm */
+    /* more simple to get a number (see openclassroom doc) */
     fscanf(file, "%d\n", &mySong.tpm);
+
+    /*récupértion nTicks */
+    /*compteur pour récuperer le nombre total de ligne*/
+    int cmpt = 0;
+    char c;
+    /* EOF == end of file */
+    while ((c = fgetc(file)) != EOF){
+        if(c == '\n') ++cmpt;
+    }
+
 
 
     /* pour lire ligne par ligne, on va faire une boucle while on va s'en servir juste pour le tableau
@@ -82,12 +93,6 @@ int main() {
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
     /*printf("Ticks :\n");
-    for (int i = 0; i < song.nTicks; i++) {
-        printf("Tick %d : accent=%d, notes=%d %d %d\n", i+1,
-               song.tickTab[i].accent,
-               song.tickTab[i].note[0],
-               song.tickTab[i].note[1],
-               song.tickTab[i].note[2]);
     }*/
 
     return 0;
