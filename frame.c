@@ -8,6 +8,7 @@
 
 #include "frame.h"
 #include "define.h"
+#include "ams.h"
 
 
 /**
@@ -43,7 +44,7 @@ void createInitFrame(s_song mySong, char* frame){
     frame = strcat(frame, &check);
     frame = strcat(frame, end);
 
-    printf(frame);
+    printf("%s", frame);
 
 }
 
@@ -61,12 +62,12 @@ void createTickFrame(s_tick myTick, char* frame){
     char end[] = "<CR><LF>\0";
 
     char* content = "";
-    content = strcat(content, &zero);
-    content  = strcat(content, &coma);
+    content = strcat(content, (const char *) &zero);
+    content  = strcat(content, (const char *) &coma);
     content = strcat(content, &accent);
     for(int i = 0; i< sizeof(myTick.note); i++){
         char note = (char) myTick.note[i];
-        content = strcat(content, &coma);
+        content = strcat(content, (const char *) &coma);
         content = strcat(content, &note);
     }
 
@@ -83,19 +84,12 @@ void createTickFrame(s_tick myTick, char* frame){
     frame = strcat(frame, star);
     frame = strcat(frame, end);
 
-    printf(frame);
+    printf("%s",frame);
 }
 
 int main() {
-    s_song mySong;
-    char* frame;
-    char title[] = "Bohemian Rapsody";
-    for (int i=0; i< strlen(title); i++){
-        mySong.title[i] = title[i];
-    }
-    mySong.title[strlen(title)] = '\0';
-    mySong.tpm = 144;
-    mySong.nTicks = 16;
+    s_song mySong = readAMS("bohemian_rhapsody.ams");
+    char frame[] = "";
 
     createInitFrame(mySong, frame);
 }
