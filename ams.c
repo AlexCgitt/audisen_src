@@ -34,10 +34,9 @@ s_song readAMS(char* fileName){
     }
 
 
-    /* to stop a line
+    /* to stop a line */
     char buffer[MAX_SIZE_LINE];
-     on va potentiellement utiliser ça
-     */
+
 
     /* pour utiliser fgets : read the doc  : https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions */
     /*we gonna recup the first information with fgets and after we're going to use the while */
@@ -51,30 +50,35 @@ s_song readAMS(char* fileName){
 
     /*récupértion nTicks */
     /*compteur pour récuperer le nombre total de ligne*/
+    /* EOF == end of file */
     int cmpt = 0;
     char c;
-    /* EOF == end of file */
+
     while ((c = fgetc(file)) != EOF){
         if(c == '\n') ++cmpt;
     }
 
     mySong.nTicks = cmpt;
 
-
-
-    /* pour lire ligne par ligne, on va faire une boucle while on va s'en servir juste pour le tableau
-
-    int cmpt = 0; // use to count our line
-    while (fgets()){
-        if {
+    char d[] = "|";
+    for(int i = 0; i<cmpt+4; i++){
+        if(i>= 4){
+            fgets(buffer, MAX_SIZE_LINE, file);
+            char * ca = strtok(buffer, d);
+            int chap = 0;
+            int note = 0;
+            while (ca != NULL) {
+                printf("LE CA =====> %s", ca);
+                if (ca[0] == '^' || ca[0] == 'x') {
+                    mySong.tickTab[i - 4].note[note] = chap;
+                    note++;
+                }
+                chap++;
+                ca = strtok(NULL, d);
+            }
 
         }
     }
-     */
-
-
-
-
 
 	return mySong;
 
@@ -98,6 +102,15 @@ int main() {
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
     printf("Nombre de Ticks : %d\n", song.nTicks);
+
+    for (int i = 0; i < song.nTicks; i++) {
+        printf("%d\t %d\t %d\t %d\t %d\n",
+               song.tickTab[i].accent,
+               song.tickTab[i].note[0],
+               song.tickTab[i].note[1],
+               song.tickTab[i].note[2],
+               song.tickTab[i].note[3]);
+    }
 
 
     return 0;
