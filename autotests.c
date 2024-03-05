@@ -70,24 +70,31 @@ void testReadAMS(){
 		fgets(title,MAX_SIZE_TITLE,pf);
 		title[strlen(title)-1]='\0';
 		fscanf(pf,"%d",&tpm);
-		//printf("%s %d",title,tpm);
+		printf("%s %d",title,tpm);
 		if(strcmp(title,mySong.title)==0){
 			cpt++;
-		}
+
+		}else{
+            printf("%d title", strcmp(title,mySong.title));
+        }
 		if(tpm==mySong.tpm){
 			cpt++;
-		}
+		}else{
+            printf("tpm");
+        }
 		i=0;
 
 		for(i=0;i<mySong.nTicks;i++){
 			fscanf(pf,"%d\t %d\t %d\t %d\t %d\n",&accent,&note[0],&note[1],&note[2],&note[3]);
-			//printf("%d\t %d\t %d\t %d\t %d",accent,note[0],note[1],note[2],note[3]);
+			printf("%d\t %d\t %d\t %d\t %d\n",accent,note[0],note[1],note[2],note[3]);
 			//getchar();
 			if(mySong.tickTab[i].accent==accent){
 				for(k=0;k<4;k++){
 					if(mySong.tickTab[i].note[k]==note[k]){
 						cpt++;
-					}
+					}else{
+                        printf("llll\n");
+                    }
 				}
 			}
 		}

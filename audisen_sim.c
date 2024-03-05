@@ -22,5 +22,7 @@ int main(){
 
     //testReadAMP();
 
+    testReadAMS();
+
     return 0;
 }
