@@ -46,16 +46,16 @@ char * strtolower(char * dest, const char * src ) {
  * @param song_filename
  */
 void readAMP(FILE* pf, char * song_filename){
-    char chaine[MAX_SONGNAME_SIZE] = "";
+    char chaine[MAX_SIZE_TITLE] = "";
 
     if (pf != NULL){
-        fgets(chaine, MAX_SONGNAME_SIZE, pf);
+        fgets(chaine, MAX_SIZE_TITLE, pf);
     }
 
-    char without_caract[MAX_SONGNAME_SIZE] = "";
+    char without_caract[MAX_SIZE_TITLE] = "";
     char under[1] = "_";
 
-    for (int i=0; i<MAX_SONGNAME_SIZE; i++){
+    for (int i=0; i<MAX_SIZE_TITLE; i++){
         if(chaine[i] == ' ' | chaine[i] == '\'' | chaine[i] == '-'){
             strncat(without_caract, (const char *) &under, 1);
         }else{
