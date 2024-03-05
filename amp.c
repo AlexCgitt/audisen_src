@@ -64,6 +64,7 @@ void readAMP(FILE* pf, char * song_filename){
     }
     strtolower(song_filename, without_caract);
     printf("%s", song_filename);
+    strcat(song_filename,".ams");
 }
 
 
