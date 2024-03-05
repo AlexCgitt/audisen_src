@@ -58,6 +58,8 @@ s_song readAMS(char* fileName){
         if(c == '\n') ++cmpt;
     }
 
+    mySong.nTicks = cmpt;
+
 
 
     /* pour lire ligne par ligne, on va faire une boucle while on va s'en servir juste pour le tableau
@@ -95,8 +97,8 @@ int main() {
 
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
-    /*printf("Ticks :\n");
-    }*/
+    printf("Nombre de Ticks : %d\n", song.nTicks);
+
 
     return 0;
 }
