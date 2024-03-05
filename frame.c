@@ -49,16 +49,16 @@ void createInitFrame(s_song mySong, char* frame){
 void createTickFrame(s_tick myTick, char* frame){
     char content[TICK_FRAME_SIZE];
 
-    sprintf(content,"0,%d,%d,%d,%d,%d", myTick.accent, myTick.note[0], myTick.note[1], myTick.note[2], myTick.note[3]);
+    sprintf(content,"0,%d,%02d,%02d,%02d,%02d", myTick.accent, myTick.note[0], myTick.note[1], myTick.note[2], myTick.note[3]);
 
     int checksum = 0;
 
-    for(int i=1; i< strlen(content); i++){
+    for(int i=0; i< strlen(content); i++){
         checksum ^= content[i] ;
     }
 
-    printf("Le checksum =>\n");
-    printf("%d\n", checksum);
+    printf("Le checksum du tick =>\n");
+    printf("%02x\n", checksum);
 
     sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
 
