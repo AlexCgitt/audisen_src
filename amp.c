@@ -34,7 +34,7 @@ FILE* initAMP(char* filename){
  */
 char * strtolower(char * dest, const char * src ) {
     char * result = dest;
-    while(*dest++ = tolower( *src++ ));
+    while((*dest++ = tolower( *src++ )));
     return result;
 }
 
