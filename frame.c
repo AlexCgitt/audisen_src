@@ -17,13 +17,9 @@
  * @param frame
  */
 void createInitFrame(s_song mySong, char* frame){
-    char content[TICK_FRAME_SIZE];
+    char content[INIT_FRAME_MAX_SIZE];
 
-    printf("avant le truc\n");
-
-    sprintf(content,"#%s,%d,%d", mySong.title, mySong.tpm, mySong.nTicks);
-
-    printf("apres\n");
+    sprintf(content,"%s,%d,%d", mySong.title, mySong.tpm, mySong.nTicks);
 
     int checksum = 0;
 
@@ -36,7 +32,7 @@ void createInitFrame(s_song mySong, char* frame){
 
     sprintf(frame, "#%s*%d\r\n\0", content, checksum);
 
-    printf("%s", frame);
+    printf("%s\n", frame);
 
 }
 
@@ -74,7 +70,7 @@ void test_frame(){
     printf("debut du test frame\n");
 
     s_song mySong = readAMS("bohemian_rhapsody.ams");
-    char frame[INIT_FRAME_MAX_SIZE];
+    char frame[MAX_SIZE_TITLE];
 
     createInitFrame(mySong, frame);
 }
