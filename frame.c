@@ -19,7 +19,7 @@
  */
 void createInitFrame(s_song mySong, char* frame){
     char content[INIT_FRAME_MAX_SIZE];
-    char title[]="";
+    //char title[]="";
 
     //strtolower(title, mySong.title);
 
@@ -32,12 +32,12 @@ void createInitFrame(s_song mySong, char* frame){
         checksum ^= content[i] ;
     }
 
-    printf("Le checksum =>\n");
-    printf("%02x\n", checksum);
+    //printf("Le checksum =>\n");
+    //printf("%02x\n", checksum);
 
-    sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
+    sprintf(frame, "#%s*%02x\r\n", content, checksum);
 
-    printf("%s\n", frame);
+    //printf("%s\n", frame);
 
 }
 
@@ -57,12 +57,12 @@ void createTickFrame(s_tick myTick, char* frame){
         checksum ^= content[i] ;
     }
 
-    printf("Le checksum du tick =>\n");
-    printf("%02x\n", checksum);
+    //printf("Le checksum du tick =>\n");
+    //printf("%02x\n", checksum);
 
-    sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
+    sprintf(frame, "#%s*%02x\r\n", content, checksum);
 
-    printf("%s", frame);
+    //printf("%s", frame);
 
 }
 
