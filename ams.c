@@ -142,13 +142,13 @@ void createAMS(char* txtFileName, char* amsFileName){
     /* get the tempo of the music */
     fgets(buffer, MAX_SIZE_LINE, from);
     fputs(buffer, to);
-    fputs("\n", to);
+    fputs("\r\n", to);
 
     /* line break */
     fgets(buffer, MAX_SIZE_LINE, from);
 
     /* line with from 01 to 60*/
-    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\n";
+    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\r\n";
     fputs(ligne_nombre, to);
 
     /* The table with the notes */
@@ -169,7 +169,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     char empty_case[4] = "  |";
     char accent_case[4] = "^ |";
     char play_case[4] = "x |";
-    char end_line[2] = "\r\n\0"; // Le \r rajoute des play_case au debut de chaque ligne :(
+    char end_line[2] = "\r\n"; // Le \r rajoute des play_case au debut de chaque ligne :(
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
