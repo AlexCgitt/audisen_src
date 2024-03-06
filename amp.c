@@ -56,17 +56,20 @@ void readAMP(FILE* pf, char * song_filename){
 
     char without_caract[MAX_SIZE_TITLE] = "";
 
-    for (int i=0; i<MAX_SIZE_TITLE; i++){
-        //Knockin’On Heaven’s Door
-        if(chaine[i] == ' ' | chaine[i] == "’" | chaine[i] == '-'){
-            strncat(without_caract, "_", 1);
-        }else{
+    for (int i = 0; i < MAX_SIZE_TITLE; i++) {
+        if (isalpha(chaine[i])) {
             strncat(without_caract, &chaine[i], 1);
+        } else {
+            if (without_caract[0] != '\0' && without_caract[strlen(without_caract) - 1] != '_') {
+                strncat(without_caract, "_", 1);
+            }
         }
     }
+
+    without_caract[strlen(without_caract)-1] = '\0';
     without_caract[strcspn(without_caract, "\n")] = '\0'; // add by me
     strtolower(song_filename, without_caract);
-    printf("%s", song_filename);
+    //printf("%s", song_filename);
     strcat(song_filename,".ams");
 }
 
