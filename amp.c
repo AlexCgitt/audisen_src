@@ -53,11 +53,11 @@ void readAMP(FILE* pf, char * song_filename){
     }
 
     char without_caract[MAX_SIZE_TITLE] = "";
-    char under[1] = "_";
 
     for (int i=0; i<MAX_SIZE_TITLE; i++){
-        if(chaine[i] == ' ' | chaine[i] == '\'' | chaine[i] == '-'){
-            strncat(without_caract, (const char *) &under, 1);
+        //Knockin’On Heaven’s Door
+        if(chaine[i] == ' ' | chaine[i] == "’" | chaine[i] == '-'){
+            strncat(without_caract, "_", 1);
         }else{
             strncat(without_caract, &chaine[i], 1);
         }

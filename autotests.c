@@ -165,7 +165,6 @@ void testReadAMP(){
         }
         if (!strcmp("knockin_on_heaven_s_door.ams", songfilename) && nbtest == 3){
             mark[nbtest]=1;
-            printf("test %d AMP ok\n", nbtest);
             #ifdef DEBUG
             printf("test %d AMP ok\n", nbtest);
             #endif

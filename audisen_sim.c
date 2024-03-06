@@ -22,8 +22,6 @@ int main(){
 
     //testFrame();
 
-    //testReadAMS();
-
     testReadAMP();
 
     return 0;

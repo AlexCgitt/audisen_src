@@ -41,7 +41,9 @@ s_song readAMS(char* fileName){
 
     /* recuperation of the title */
     fgets(mySong.title, MAX_SIZE_TITLE, file);
-    mySong.title[strlen(mySong.title)-1] = '\0';
+    int len = strlen(mySong.title);
+    mySong.title[len-1] = '\0';
+
     /* recupération tpm */
     /* more simple to get a number (see openclassroom doc) */
     fscanf(file, "%d\n", &mySong.tpm);
@@ -149,7 +151,6 @@ void createAMS(char* txtFileName, char* amsFileName){
     fputs(ligne_nombre, to);
 
     /* line of octave and  notes */
-    // TODO voir pour le nombre de lignes
     /* notes:
         A = 10
         B = 12
@@ -161,12 +162,26 @@ void createAMS(char* txtFileName, char* amsFileName){
     */
 
     int tab_notes[7] = {10,12,1,3,4,6,8};
+    int tab_oct[5] = {0, 12, 24, 36, 48};
 
     while(fgets(buffer, MAX_SIZE_LINE, from)){
         //lit 1 caractère => association à une note
         //2e carcatère => indique l'octave
         //3e verif diez ? si oui +1 à la val note
         // ===> recup valeur case de tableau de 60
+
+        char * tok = strtok(buffer, " ");
+        int code_note = fgetc(tok);
+        int code_oct = fgetc(tok);
+
+        int note = tab_notes[code_note - 'A'];
+        int oct = tab_oct[code_oct-1];
+        int box = note + oct;
+
+        if(fgetc(tok) == '#'){
+            box += 1;
+        }
+
     }
 
 
