@@ -9,35 +9,59 @@
 #include "define.h"
 #include "autotests.h"
 
-void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm){
+void remove_r(char *str) {
+    char *src, *dst;
+    for (src = dst = str; *src != '\0'; src++) {
+        *dst = *src;
+        if (*dst != '\r') dst++;
+    }
+    *dst = '\0';
+}
+
+void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm) {
 
     // start with frm open in write mode
-    FILE * frm = NULL;
+    FILE *frm = NULL;
     frm = fopen(new_playlist_frm, "w");
-    if (frm == NULL){
+    if (frm == NULL) {
         printf("erreur lors de l'ouverture du fichier");
         exit(0);
     }
 
+    //variable
+    FILE *play = NULL;
+    char chaine[MAX_SIZE_TITLE];
+    char content[INIT_FRAME_MAX_SIZE];
+    char contentick[TICK_FRAME_SIZE];
+    s_song Mysong;
+
+
     //recuperation of amp file
-    FILE * play = NULL;
     play = initAMP(ma_playliste);
 
-    //recuperation of ams title file
-    char chaine[MAX_SIZE_TITLE];
-    readAMP(play, chaine);
-    printf("%s", chaine);
+    while (!feof(play)) {
 
-    // recuperation of my song struct
-    s_song Mysong;
-    Mysong = readAMS(chaine);
-    //printf("%d", Mysong.tpm);
+        //recuperation of ams title file
+        readAMP(play, chaine);
+        //printf("%s", chaine);
 
-    //recuperation of init frame
-    /*char content[INIT_FRAME_MAX_SIZE];
-    createInitFrame(Mysong, content);*/
+        // recuperation of my song struct
+        Mysong = readAMS(chaine);
+        //printf("%d", Mysong.tpm);
+        if (strlen(Mysong.title) != 0) {
+            Mysong.title[strlen(Mysong.title)-1] = '\0';
+            //recuperation of init frame
+            createInitFrame(Mysong, content);
+            remove_r(content);
+            fprintf(frm, "%s", content);
+            for (int i = 0; i < Mysong.nTicks; i++) {
+                createTickFrame(Mysong.tickTab[i], contentick);
+                remove_r(contentick);
+                fprintf(frm, "%s", contentick);
+            }
 
-
+        }
+    }
 }
 
 
@@ -55,7 +79,7 @@ int main(){
 
     //testReadAMP();
 
-    //testFrame();
+   createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
     //createAMS("bohemian_rhapsody.txt", "test.ams");
 
