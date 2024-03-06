@@ -114,6 +114,7 @@ int test_ams() {
 
 /**
  * creation of an electronic partition (<chanson>.ams) from a simplify partition (<chanson>.txt)
+ * to make this create
  * @param txtFileName
  * @param amsFileName :
  */
