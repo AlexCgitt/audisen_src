@@ -120,7 +120,6 @@ int test_ams() {
  */
 void createAMS(char* txtFileName, char* amsFileName){
 
-    s_song NewSong;
     FILE * from = NULL;
     FILE * to = NULL;
     from = fopen(txtFileName, "r");
@@ -139,7 +138,6 @@ void createAMS(char* txtFileName, char* amsFileName){
     /* get the title from the txt file to the ams file */
     fgets(buffer, MAX_SIZE_LINE, from);
     fputs(buffer, to);
-    fputs("\n", to);
 
     /* get the tempo of the music */
     fgets(buffer, MAX_SIZE_LINE, from);
@@ -150,7 +148,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     fgets(buffer, MAX_SIZE_LINE, from);
 
     /* line with from 01 to 60*/
-    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 ";
+    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\n";
     fputs(ligne_nombre, to);
 
     /* The table with the notes */
@@ -168,52 +166,63 @@ void createAMS(char* txtFileName, char* amsFileName){
     int tab_oct[5] = {0, 12, 24, 36, 48};
 
     /* case to put in the table */
-    char empty_case[3] = " |";
+    char empty_case[3] = " |"; //TODO comment mettre 2 espaces
     char accent_case[3] = "^ |";
     char play_case[3] = "x |";
     char end_line[2] = "\n";
-    char nligne[4] = "000|";
+    char nligne[5] = "000| ";
+    char buf_cpy[MAX_SIZE_LINE];
+
+    int tab_lignes[16][60] = {0}; //TODO Voir pour la taille de tableau
 
     int ligne = 0;
 
 
     while(fgets(buffer, MAX_SIZE_LINE, from)){
-        //lit 1 caractère => association à une note
-        //2e carcatère => indique l'octave
-        //3e verif diez ? si oui +1 à la val note
-        // ===> recup valeur case de tableau de 60
 
-        /* Put the ligne number at the beginning of the ligne*/
         ligne ++;
-        nligne[3] = (char)ligne;
-        fputs(nligne, to);
+        int j = 0;
+        printf("Ligne numero %d:\n", ligne);
 
-        // Pointer to the next column to fill
-        int col = 1;
+        //Delete the space of the buffer
+        for(int i=0; i< strlen(buffer); i++){
+            if(buffer[i] != ' ' && buffer[i] != '\t'){
+                buf_cpy[j] = buffer[i];
+                j++;
+            }
+        }
+
+        /* Debug for mac
+        int l = strlen(buffer);
+        buffer[l-1] = '\0';
+        buffer[l-2] = '\n';
+         */
 
         /* Get the information about the note */
-        char * info_note = strtok(buffer, ", ");
+        char * info_note = strtok(buf_cpy, ",");
 
-        while ( info_note != NULL ) {
+        while (info_note != NULL){
+
 		    int len = strlen(info_note);
             int code_note = info_note[0]; // Get the note
-            int code_oct = info_note[1];  // Get the octave
+            int code_oct = info_note[1] - '0';  // Get the octave
 
             int note = tab_notes[code_note - 'A'];
             int oct = tab_oct[code_oct-1];
             int box = note + oct; // Index in the table
 
-            if(info_note[3] == '#'){
+            printf("%d - %d - %c\n", note, oct,info_note[2]);
+
+            if(info_note[2] == '#'){
 				box += 1;
 			}
 
-            /* Fill the table*/
-            for(int i=col; i<box; i++){
-                fputs(empty_case, to);
-            }
-            fputs(accent_case, to);
+            tab_lignes[ligne-1][box-1] = 1;
+            //printf("Le coordonees de la note %d, %d\n\n", ligne-1, box-1);
+
 
             /* Manage the repetition of the note*/
+            //TODO gérer les repetes
 			int repet = 0;
 			switch(info_note[len-1]){
 			    case 'R' :
@@ -229,7 +238,38 @@ void createAMS(char* txtFileName, char* amsFileName){
 			        repet = 1;
 			        break;
 			}
+
+            if(repet>1){
+                for(int i=0; i<repet-1;i++){
+                    tab_lignes[ligne + 1][box-1] = 2;
+                    //printf("\n\nLes coord de repets %d-%d\n\n", ligne +i, box-1);
+                }
+            }
+            info_note = strtok ( NULL, "," );
+
 		}
+    }
+
+    // TODO fill the ams document
+    /* Fill the table in the ams file*/
+
+    for(int i=0; i<16; i++){
+        /* Put the ligne number at the beginning of the ligne*/
+        nligne[2] = ligne; //TODO Pb affichage de la ligne
+        nligne[4] = '\0';
+        fputs(nligne, to);
+
+        for(int j=0; j<60; j++){
+            //printf("%d\n", tab_lignes[i][j]);
+            if(tab_lignes[i][j] == 1){
+                fputs(accent_case, to);
+            }
+            else if (tab_lignes[i][j] == 2){
+                fputs(play_case, to);
+            }else{
+                fputs(empty_case, to);
+            }
+        }
         fputs(end_line, to);
     }
 }

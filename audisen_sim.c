@@ -22,7 +22,9 @@ int main(){
 
     //testFrame();
 
-    testReadAMP();
+    //testReadAMP();
+
+    createAMS("bohemian_rhapsody.txt", "test.ams");
 
     return 0;
 }
