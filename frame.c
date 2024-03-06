@@ -62,7 +62,8 @@ void createTickFrame(s_tick myTick, char* frame){
 
     sprintf(frame, "#%s*%02x\r\n\0", content, checksum);
 
-    printf("%s", frame);
+
+    printf("%s\n", frame);
 
 }
 

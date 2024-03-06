@@ -166,11 +166,11 @@ void createAMS(char* txtFileName, char* amsFileName){
     int tab_oct[5] = {0, 12, 24, 36, 48};
 
     /* case to put in the table */
-    char empty_case[3] = " |"; //TODO comment mettre 2 espaces
-    char accent_case[3] = "^ |";
-    char play_case[3] = "x |";
+    char empty_case[4] = "  |";
+    char accent_case[4] = "^ |";
+    char play_case[4] = "x |";
     char end_line[2] = "\n";
-    char nligne[5] = "000| ";
+    char nligne[6] = "000| ";
     char buf_cpy[MAX_SIZE_LINE];
 
     int tab_lignes[16][60] = {0}; //TODO Voir pour la taille de tableau
@@ -222,7 +222,6 @@ void createAMS(char* txtFileName, char* amsFileName){
 
 
             /* Manage the repetition of the note*/
-            //TODO gérer les repetes
 			int repet = 0;
 			switch(info_note[len-1]){
 			    case 'R' :
@@ -240,9 +239,8 @@ void createAMS(char* txtFileName, char* amsFileName){
 			}
 
             if(repet>1){
-                for(int i=0; i<repet-1;i++){
-                    tab_lignes[ligne + 1][box-1] = 2;
-                    //printf("\n\nLes coord de repets %d-%d\n\n", ligne +i, box-1);
+                for(int i=0; i<repet;i++){
+                    tab_lignes[ligne + i][box-1] = 2;
                 }
             }
             info_note = strtok ( NULL, "," );
@@ -255,12 +253,10 @@ void createAMS(char* txtFileName, char* amsFileName){
 
     for(int i=0; i<16; i++){
         /* Put the ligne number at the beginning of the ligne*/
-        nligne[2] = ligne; //TODO Pb affichage de la ligne
-        nligne[4] = '\0';
+        sprintf(nligne, "%03d|\0", i+1);
         fputs(nligne, to);
 
         for(int j=0; j<60; j++){
-            //printf("%d\n", tab_lignes[i][j]);
             if(tab_lignes[i][j] == 1){
                 fputs(accent_case, to);
             }
