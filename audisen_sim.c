@@ -29,7 +29,7 @@ void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm){
     printf("%s", chaine);
 
     // recuperation of my song struct
-    //s_song Mysong;
+    s_song Mysong;
     Mysong = readAMS(chaine);
     //printf("%d", Mysong.tpm);
 
@@ -57,7 +57,9 @@ int main(){
 
     //testFrame();
 
-    createAMS("bohemian_rhapsody.txt", "test.ams");
+    //createAMS("bohemian_rhapsody.txt", "test.ams");
+
+    testCreateAMS();
 
     return 0;
 }

@@ -169,8 +169,8 @@ void createAMS(char* txtFileName, char* amsFileName){
     char empty_case[4] = "  |";
     char accent_case[4] = "^ |";
     char play_case[4] = "x |";
-    char end_line[2] = "\n";
-    char nligne[6] = "000| ";
+    char end_line[2] = "\r\n\0"; // Le \r rajoute des play_case au debut de chaque ligne :(
+    char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
     int tab_lignes[16][60] = {0}; //TODO Voir pour la taille de tableau
@@ -252,6 +252,8 @@ void createAMS(char* txtFileName, char* amsFileName){
     /* Fill the table in the ams file*/
 
     for(int i=0; i<16; i++){
+        int truc = tab_lignes[i][0];
+        //printf("la case finale de la ligne ==> %d\n", truc);
         /* Put the ligne number at the beginning of the ligne*/
         sprintf(nligne, "%03d|\0", i+1);
         fputs(nligne, to);
@@ -262,10 +264,12 @@ void createAMS(char* txtFileName, char* amsFileName){
             }
             else if (tab_lignes[i][j] == 2){
                 fputs(play_case, to);
+                printf("ajout case 2 au coordonées %d %d\n", i,j);
             }else{
                 fputs(empty_case, to);
             }
         }
-        fputs(end_line, to);
+        if(i<15)
+            fputs(end_line, to);
     }
 }
