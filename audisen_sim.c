@@ -79,7 +79,7 @@ int main(){
 
     //test_frame();
 
-    testFrame();
+    //testFrame();
 
     //testReadAMP();
 
