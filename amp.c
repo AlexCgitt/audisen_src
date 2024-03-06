@@ -42,9 +42,11 @@ char * strtolower(char * dest, const char * src ) {
  * consiste à lire une ligne du fichier pointé par pf et renvoie chaine de caractère
  * on remplace espace " " par "_" et on ne doit pas avoir deux "__"
  * dès que le ficher est lu (est terminé), renvoie NULL (plus de titre à lire)
+ * to understand strncat see : https://www.youtube.com/watch?v=40yPiMCgixY
  * @param pf
  * @param song_filename
  */
+
 void readAMP(FILE* pf, char * song_filename){
     char chaine[MAX_SIZE_TITLE] = "";
 
@@ -62,10 +64,13 @@ void readAMP(FILE* pf, char * song_filename){
             strncat(without_caract, &chaine[i], 1);
         }
     }
+    without_caract[strcspn(without_caract, "\n")] = '\0'; // add by me
     strtolower(song_filename, without_caract);
     printf("%s", song_filename);
     strcat(song_filename,".ams");
 }
+
+
 
 
 
