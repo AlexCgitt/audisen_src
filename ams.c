@@ -183,8 +183,8 @@ void createAMS(char* txtFileName, char* amsFileName){
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
-    int tab_lignes[16][60]; //TODO Voir pour la taille de tableau
-    for(int i=0; i<16; i++){
+    int tab_lignes[MAX_SIZE_LINE][60];
+    for(int i=0; i<MAX_SIZE_LINE; i++){
         for(int j=0; j<60; j++){
             tab_lignes[i][j] = 0;
         }
