@@ -1,17 +1,16 @@
 Le Chateau ambulant
-175
+80
 
 D3 C
 G3 C
-A4# C
+A3# C
 D4 N
-
+A1 C
 D4 C
 C4 C
-A4# C
-A4 C
-A4# R
+A3# B
+A3# C
 G3 C
-A4# C
+A3# C
 D4 C
 G4 R

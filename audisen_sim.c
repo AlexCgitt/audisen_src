@@ -82,10 +82,13 @@ int main(){
    //createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
 
-    //createAMS("bohemian_rhapsody.txt", "test.ams");
+    createAMS("le_chateau_ambulant.txt", "le_chateau_ambulant.ams");
+    createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
-    testCreateAMS();
-    test_ams();
+    //testCreateAMS();
+    //test_ams();
+    //test_ams();
+
 
     return 0;
 }

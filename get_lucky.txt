@@ -1,32 +1,52 @@
 Get Lucky
-58
+116
 
 D3 C
+
 D3 N
+
 D3 N
+
 D3 N
+
 D3 C
+
 D3 N
 E3 B
 D3 C
+
 D3 N
+
 D3 N
+
 D3 N
+
 D3 C
+
 D3 N
 E3 B
 C3# C
+
 C3# N
+
 C3# N
+
 C3# N
+
 C3# C
+
 C3# N
 E3 B
 B3 C
+
 B3 N
+
 B3 N
+
 B3 N
+
 B3 N
+
 C3# C
 B3 N
 A3 N

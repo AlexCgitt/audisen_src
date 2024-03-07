@@ -1,5 +1,5 @@
 Bohemian Rhapsody
-72
+144
 
 A1# R, A2# C, D3 C, A3# C
 F2 C
