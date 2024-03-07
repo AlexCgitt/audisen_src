@@ -1,8 +1,8 @@
 #MakeFile squelette à modifier par les étudiants
 # CAVARO Alexandre RIOU Margot 2 Caen
 
-TARGET = audisen_usb.exe # pour la partie USB
-#TARGET = audisen_sim.out
+#TARGET = audisen_usb.exe # pour la partie USB
+TARGET = audisen_sim.out
 
 
 all: $(TARGET)
