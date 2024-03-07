@@ -82,7 +82,7 @@ int main(){
    //createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
 
-    createAMS("le_chateau_ambulant.txt", "le_chateau_ambulant.ams");
+    createAMS("Tetris.txt", "Tetris.ams");
     createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
     //testCreateAMS();
