@@ -120,9 +120,9 @@ int test_ams() {
  * @param amsFileName :
  */
 void createAMS(char* txtFileName, char* amsFileName){
-
     FILE * from = NULL;
     FILE * to = NULL;
+
     from = fopen(txtFileName, "r");
     if (from == NULL){
         printf("Error file not found ! \n");
@@ -136,27 +136,36 @@ void createAMS(char* txtFileName, char* amsFileName){
 
     char buffer[MAX_SIZE_LINE];
 
-    /* get the title from the txt file to the ams file */
+    /* get the title from the txt file to the ams file*/
     fgets(buffer, MAX_SIZE_TITLE, from);
     fputs(buffer, to);
-    int l = strlen(buffer);
-    buffer[l-1] = '\0';
-    buffer[l-2] = '\n';
-    printf("ligne titre = %s\n", buffer);
 
-    /* get the tempo of the music */
+    /* get the tempo of the music*/
     fgets(buffer, MAX_SIZE_LINE, from);
     fputs(buffer, to);
     fputs("\r\n", to);
 
-    /* line break */
+    /* line break*/
     fgets(buffer, MAX_SIZE_LINE, from);
 
-    /* line with from 01 to 60*/
-    char ligne_nombre[190] = "    01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\r\n";
-    fputs(ligne_nombre, to);
 
-    /* The table with the notes */
+    char numeros[MAX_SIZE_LINE];
+    sprintf(numeros,"    ");
+    for (int i=1;i<=60;i++){
+        sprintf(numeros+strlen(numeros), "%02d ",i);
+    }
+    sprintf(numeros+strlen(numeros),"\r\n");
+    fputs(numeros,to);
+
+    //fin fonction
+    char tableau_ticks[MAX_NUMBER_TICKS][60];
+    for (int i=0;i<MAX_NUMBER_TICKS;i++){
+        for (int j=0;j<60;j++){
+            tableau_ticks[i][j]=' ';
+        }
+    }
+
+    /* The table with the notes*/
     /* notes:
         A = 10
         B = 12
@@ -170,7 +179,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     int tab_notes[7] = {10,12,1,3,4,6,8};
     int tab_oct[5] = {0, 12, 24, 36, 48};
 
-    /* case to put in the table */
+    /* case to put in the table*/
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
@@ -202,14 +211,14 @@ void createAMS(char* txtFileName, char* amsFileName){
         int l = strlen(buffer);
         buffer[l-1] = '\0';
         buffer[l-2] = '\n';
-         */
+        */
 
-        /* Get the information about the note */
+        /* Get the information about the note*/
         char * info_note = strtok(buf_cpy, ",");
 
         while (info_note != NULL){
 
-		    int len = strlen(info_note);
+            int len = strlen(info_note);
             int code_note = info_note[0]; // Get the note
             int code_oct = info_note[1] - '0';  // Get the octave
 
@@ -220,29 +229,29 @@ void createAMS(char* txtFileName, char* amsFileName){
             printf("%d - %d - %c\n", note, oct,info_note[2]);
 
             if(info_note[2] == '#'){
-				box += 1;
-			}
+                box += 1;
+            }
 
             tab_lignes[ligne-1][box-1] = 1;
             //printf("Le coordonees de la note %d, %d\n\n", ligne-1, box-1);
 
 
             /* Manage the repetition of the note*/
-			int repet = 0;
-			switch(info_note[len-1]){
-			    case 'R' :
-			        repet = 8;
-			        break;
-			    case 'B':
-			        repet = 4;
-			        break;
-			    case 'N':
-			        repet = 2;
-			        break;
-			    case 'C':
-			        repet = 1;
-			        break;
-			}
+            int repet = 0;
+            switch(info_note[len-1]){
+                case 'R' :
+                    repet = 8;
+                    break;
+                case 'B':
+                    repet = 4;
+                    break;
+                case 'N':
+                    repet = 2;
+                    break;
+                case 'C':
+                    repet = 1;
+                    break;
+            }
 
             if(repet>1){
                 for(int i=0; i<repet;i++){
@@ -251,7 +260,7 @@ void createAMS(char* txtFileName, char* amsFileName){
             }
             info_note = strtok (NULL, "," );
 
-		}
+        }
     }
     /* Fill the table in the ams file*/
 
@@ -274,4 +283,8 @@ void createAMS(char* txtFileName, char* amsFileName){
         if(i<ligne-1)
             fputs("\r\n\0", to);
     }
+
+    // Close files
+    fclose(to);
+    fclose(from);
 }
