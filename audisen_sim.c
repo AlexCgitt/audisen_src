@@ -79,11 +79,13 @@ int main(){
 
     //testReadAMP();
 
-   createFRM_readPlaylist("ma_playlist.amp", "new.frm");
+   //createFRM_readPlaylist("ma_playlist.amp", "new.frm");
+
 
     //createAMS("bohemian_rhapsody.txt", "test.ams");
 
     testCreateAMS();
+    test_ams();
 
     return 0;
 }

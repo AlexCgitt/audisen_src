@@ -54,6 +54,7 @@ s_song readAMS(char* fileName){
     int cmpt = 0;
     char d[] = "|";
     int cmpt_ch = 0;
+    memset(mySong.tickTab, 0, sizeof (mySong.tickTab)); // Initialize an empty table
 
 
     while (fgets(buffer, MAX_SIZE_LINE, file)){
@@ -87,7 +88,7 @@ s_song readAMS(char* fileName){
 //test
 
 int test_ams() {
-    char fileName[] = "bohemian_rhapsody.ams";
+    char fileName[] = "test.ams";
 
 
     // Lire les informations du fichier AMS
@@ -136,8 +137,12 @@ void createAMS(char* txtFileName, char* amsFileName){
     char buffer[MAX_SIZE_LINE];
 
     /* get the title from the txt file to the ams file */
-    fgets(buffer, MAX_SIZE_LINE, from);
+    fgets(buffer, MAX_SIZE_TITLE, from);
     fputs(buffer, to);
+    int l = strlen(buffer);
+    buffer[l-1] = '\0';
+    buffer[l-2] = '\n';
+    printf("ligne titre = %s\n", buffer);
 
     /* get the tempo of the music */
     fgets(buffer, MAX_SIZE_LINE, from);
@@ -169,7 +174,12 @@ void createAMS(char* txtFileName, char* amsFileName){
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
-    int tab_lignes[16][60] = {0}; //TODO Voir pour la taille de tableau
+    int tab_lignes[16][60]; //TODO Voir pour la taille de tableau
+    for(int i=0; i<16; i++){
+        for(int j=0; j<60; j++){
+            tab_lignes[i][j] = 0;
+        }
+    }
 
     int ligne = 0;
 
@@ -245,7 +255,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     }
     /* Fill the table in the ams file*/
 
-    for(int i=0; i<16; i++){
+    for(int i=0; i<ligne; i++){
         /* Put the ligne number at the beginning of the ligne*/
         sprintf(nligne, "%03d|", i+1);
         fputs(nligne, to);
@@ -261,7 +271,7 @@ void createAMS(char* txtFileName, char* amsFileName){
                 fputs("  |", to);
             }
         }
-        if(i<15)
+        if(i<ligne-1)
             fputs("\r\n\0", to);
     }
 }
