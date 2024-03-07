@@ -65,10 +65,6 @@ void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm) {
 }
 
 
-
-
-
-
 int main(){
     printf("Demarrage du projet AUDISEN\n");
 
@@ -83,13 +79,13 @@ int main(){
 
     //testReadAMP();
 
+   //createFRM_readPlaylist("ma_playlist.amp", "new.frm");
 
-   createFRM_readPlaylist("ma_playlist.amp", "new.frm");
-    
-    
+
+    //createAMS("bohemian_rhapsody.txt", "test.ams");
+
+    testCreateAMS();
+    test_ams();
 
     return 0;
 }
-
-
-

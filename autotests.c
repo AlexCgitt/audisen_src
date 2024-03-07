@@ -307,6 +307,7 @@ void testCreateAMS(){
 				}
 			}
 		}
+        printf("mes lignes = %d\n ref lignes = %d\n", nCorrectLines, nLines);
 		if(nLines==nCorrectLines){
 			mark[1]=1;
 		}else{
