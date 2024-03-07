@@ -148,7 +148,7 @@ void createAMS(char* txtFileName, char* amsFileName){
     fgets(buffer, MAX_SIZE_LINE, from);
 
     /* line with from 01 to 60*/
-    char ligne_nombre[190] = "   01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\r\n";
+    char ligne_nombre[190] = "    01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60\r\n";
     fputs(ligne_nombre, to);
 
     /* The table with the notes */
@@ -166,10 +166,6 @@ void createAMS(char* txtFileName, char* amsFileName){
     int tab_oct[5] = {0, 12, 24, 36, 48};
 
     /* case to put in the table */
-    char empty_case[4] = "  |";
-    char accent_case[4] = "^ |";
-    char play_case[4] = "x |";
-    char end_line[2] = "\r\n"; // Le \r rajoute des play_case au debut de chaque ligne :(
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
@@ -243,33 +239,29 @@ void createAMS(char* txtFileName, char* amsFileName){
                     tab_lignes[ligne + i][box-1] = 2;
                 }
             }
-            info_note = strtok ( NULL, "," );
+            info_note = strtok (NULL, "," );
 
 		}
     }
-
-    // TODO fill the ams document
     /* Fill the table in the ams file*/
 
     for(int i=0; i<16; i++){
-        int truc = tab_lignes[i][0];
-        //printf("la case finale de la ligne ==> %d\n", truc);
         /* Put the ligne number at the beginning of the ligne*/
-        sprintf(nligne, "%03d|\0", i+1);
+        sprintf(nligne, "%03d|", i+1);
         fputs(nligne, to);
 
         for(int j=0; j<60; j++){
             if(tab_lignes[i][j] == 1){
-                fputs(accent_case, to);
+                fputs("^ |", to);
             }
             else if (tab_lignes[i][j] == 2){
-                fputs(play_case, to);
-                printf("ajout case 2 au coordonées %d %d\n", i,j);
+                fputs("x |", to);
+                //printf("ajout case 2 au coordonées %d %d\n", i,j);
             }else{
-                fputs(empty_case, to);
+                fputs("  |", to);
             }
         }
         if(i<15)
-            fputs(end_line, to);
+            fputs("\r\n\0", to);
     }
 }
