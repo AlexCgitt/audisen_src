@@ -1,17 +1,25 @@
 He's a pirate
-106
+156
 
-A3 C
+A2 C
 C3 C
-D3 R
-
+D3 C
+A1 C
+D3 C
+A1 C
+D3 C
 E3 C
 F3 R
-
+A1 C
+F3 C
+A1 C
+F3 C
 G3 C
-E3 R
-
+E3 N
+A1 C
+E3 N
+D3 C
 C3 C
-
+A1 C
 C3 C
 D3 C

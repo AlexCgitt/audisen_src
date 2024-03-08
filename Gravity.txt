@@ -1,0 +1,25 @@
+Gravity
+166
+
+D3 C, F3 C
+D3 C, F3 C
+D3 C, F3 C
+C3 C, F3 C
+C3 C, F3 C
+C3 C, F3 C
+C3# C, E3 C
+C3# C, E3 C
+C3# C, E3 C
+C3# C, E3 C
+C3# C, E3 C
+D3
+D3
+D3
+E3
+F3
+F3
+F3
+A3
+A3
+G3
+G3
