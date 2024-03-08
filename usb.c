@@ -7,7 +7,10 @@
 #include "ftd2xx.h"
 #include "usb.h"
 
-
+/**
+ * Init the usb port with define data
+ * @return
+ */
 FT_HANDLE initUSB(){
     FT_HANDLE ftHandle;
     FT_STATUS ftStatus;
@@ -52,13 +55,21 @@ FT_HANDLE initUSB(){
     }
 
     return ftHandle;
-
 }
+
+/**
+ * Close the usb port
+ * @param ftHandle : port information
+ */
 void closeUSB(FT_HANDLE ftHandle){
         FT_Close(ftHandle);
 }
 
-
+/**
+ * Push a frame on the stm32 card with an usb port for the project
+ * @param frame : the frame we want to push
+ * @param ftHandle :
+ */
 void writeUSB(char* frame, FT_HANDLE ftHandle){
     FT_STATUS ftStatus;
     DWORD BytesWritten;

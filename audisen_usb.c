@@ -9,10 +9,10 @@
 #include "amp.h"
 #include "define.h"
 
-
-
-
-
+/**
+ * Remove \r in a string
+ * @param str
+ */
 void remove_r(char *str) {
     char *src, *dst;
     for (src = dst = str; *src != '\0'; src++) {
@@ -43,34 +43,36 @@ int main(){
     s_song Mysong;
 
 
-    //recuperation of amp file
+    //Get the amp file
     play = initAMP("ma_playlist.amp");
 
     while (!feof(play)) {
 
-        //recuperation of ams title file
+        //Get the title of the ams file
         readAMP(play, chaine);
         //printf("%s", chaine);
 
-        // recuperation of my song struct
+        // Get my song struct
         Mysong = readAMS(chaine);
         //printf("%d", Mysong.tpm);
+
         if (strlen(Mysong.title) != 0) {
             Mysong.title[strlen(Mysong.title)-1] = '\0';
-            //recuperation of init frame
+
+            //Create the init frame
             createInitFrame(Mysong, content);
             writeUSB(content,ftHand);
             remove_r(content);
             fputs(content, frm);
+
+            // Create the tick frame
             for (int i = 0; i < Mysong.nTicks; i++) {
                 createTickFrame(Mysong.tickTab[i], contentick);
                 printf("frame : %s",contentick);
                 writeUSB(contentick, ftHand);
                 remove_r(contentick);
                 fputs(contentick, frm);
-
             }
-
         }
     }
 

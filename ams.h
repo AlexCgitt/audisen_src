@@ -10,7 +10,7 @@
 struct song initSong();
 struct song readAMS(char* fileName);
 void createAMS(char* txtFileName, char* amsFileName);
-int test_ams();
+int test_ams(char * filename);
 
 
 #endif //AUDISEN2024

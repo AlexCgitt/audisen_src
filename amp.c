@@ -7,12 +7,11 @@
 #include <ctype.h>
 
 /**
- * pour ce renseigner plus en détail, ne pas hésiter à aller regarder
+ * Open an amp file
+ * For more information
  * https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions
- * @param filename
+ * @param filename : the path to the filename
  * @return pf
- * la fonction doit tenter d'ouvrir le fichier filename:"playlist.amp"
- * si le fichier s'ouvre en lecture on renvoie un pointeur vers ce fichier sinon on renvoie NULL.
  */
 
 FILE* initAMP(char* filename){
@@ -39,11 +38,10 @@ char * strtolower(char * dest, const char * src ) {
 }
 
 /**
- * consiste à lire une ligne du fichier pointé par pf et renvoie chaine de caractère
- * on remplace espace " " par "_" et on ne doit pas avoir deux "__"
- * dès que le ficher est lu (est terminé), renvoie NULL (plus de titre à lire)
+ * Read the amp file to the end and put the song name in a formatted way
+ * space, apostrophe and special character with an '_'
  * to understand strncat see : https://www.youtube.com/watch?v=40yPiMCgixY
- * @param pf
+ * @param pf : the open file
  * @param song_filename
  */
 
@@ -67,7 +65,7 @@ void readAMP(FILE* pf, char * song_filename){
     }
 
     without_caract[strlen(without_caract)-1] = '\0';
-    without_caract[strcspn(without_caract, "\n")] = '\0'; // add by me
+    without_caract[strcspn(without_caract, "\n")] = '\0'; // Put a \0 at the end of the line
     strtolower(song_filename, without_caract);
     //printf("%s", song_filename);
     strcat(song_filename,".ams");
@@ -89,13 +87,14 @@ void closeAMP(FILE* pf){
     }
 }
 
-/**
- *  to test amp.c
- * @return string
- */
 
-int test_amp() {
-    FILE* fichier = initAMP("ma_playlist.amp");
+/**
+ * Test the read ams function
+ * @param filename : the name of the amp file
+ * @return
+ */
+int test_amp(char * filename) {
+    FILE* fichier = initAMP(filename);
     if (fichier != NULL) {
         char nom_chanson[MAX_SONGNAME_SIZE];
         readAMP(fichier, nom_chanson);

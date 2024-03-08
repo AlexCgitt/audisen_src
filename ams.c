@@ -6,23 +6,16 @@
 #include "ams.h"
 
 /**
- * readAMS() read the file name filename and return a struct of s_song type with all the information about song.
- * information = tick in a minute, total tick, music title, tick title
- * in the ams file, we have all the information (title in the first line, tpm in the second line, nTick in the third line, and tickTab
- * we need to use fgets
- * for the title we just need to use a fgets (see the open classroom doc) to get a line with a string
- * for the tpm it's better to use a fscanf (see the open classroom doc) to recup nmb in a line
- * for the nTick, we make a while till the end of the file - 4
- * for the tick table, utilisation of strtok (see https://www.youtube.com/watch?v=nrO_pXGZc3Y on ytb)
- * utilisation of compt to get .accent and .note
- * if the file can't be read, return struct with empty title ("") and '0' on all other content
+ * Read the ams file named filename to complete the struct with the file information
+ * information = song name, tick in a minute, total tick, tab with tick
+ * if the file can't be read or is empty, return struct with empty title ("") and '0' on all other content
+ *
+ * Documentation about the file reading:
  * doc src = https://zestedesavoir.com/tutoriels/755/le-langage-c-1/1043_aggregats-memoire-et-fichiers/4279_structures/
  * doc src = https://openclassrooms.com/fr/courses/19980-apprenez-a-programmer-en-c/16421-manipulez-des-fichiers-a-laide-de-fonctions
- * initialise un tableau à 0 en c src = https://www.delftstack.com/fr/howto/c/c-initialize-array-to-0/
  * @param fileName
- * @return
+ * @return the struct song completed
  */
-
 s_song readAMS(char* fileName){
 	
 	s_song mySong;
@@ -32,26 +25,25 @@ s_song readAMS(char* fileName){
         mySong.tpm = 0;
         mySong.nTicks = 0;
         mySong.title[0] = '\0';
-        memset(mySong.tickTab, 0, sizeof (mySong.tickTab)); // Initialize an empty table
+        memset(mySong.tickTab, 0, sizeof (mySong.tickTab)); // Initialize an empty table (https://www.delftstack.com/fr/howto/c/c-initialize-array-to-0/)
         /*memset(variable de pointage vers le bloc de mémoire à remplir, valeur a définir, nombre d’octets à mettre à la valeur.)*/
         return mySong;
     }
 
     char buffer[MAX_SIZE_LINE];
 
-    /* recuperation of the title */
+    /* Get the title */
     fgets(mySong.title, MAX_SIZE_TITLE, file);
     int len = strlen(mySong.title);
     mySong.title[len-1] = '\0';
 
-    /* recupération tpm */
-    /* more simple to get a number (see openclassroom doc) */
+    /* Get the tempo */
+    /* using fscanf is more simple to get a number (see openclassroom doc) */
     fscanf(file, "%d\n", &mySong.tpm);
     //mySong.tpm *= 2;
 
-    /*recupertion of nTicks and tickTab */
-    /*cmpt to recup total number in line */
-    int cmpt = 0;
+    /* Get the number of ticks and the tickTab */
+    int cmpt = 0; // to get total number in line
     char d[] = "|";
     int cmpt_ch = 0;
     memset(mySong.tickTab, 0, sizeof (mySong.tickTab)); // Initialize an empty table
@@ -76,7 +68,7 @@ s_song readAMS(char* fileName){
             chap ++;
         }
     }
-    /* -1 because our  cmpt start at 0*/
+    /* -1 because our cmpt start at 0*/
     mySong.nTicks = cmpt - 1;
 
 	return mySong;
@@ -84,18 +76,15 @@ s_song readAMS(char* fileName){
 }
 
 
+/**
+ * Test the read ams file and print the data present in the song struct
+ * @return
+ */
+int test_ams(char * filename) {
+    // Read ams file information
+    s_song song = readAMS(filename);
 
-//test
-
-int test_ams() {
-    char fileName[] = "test.ams";
-
-
-    // Lire les informations du fichier AMS
-    s_song song = readAMS(fileName);
-
-    // Affichage des informations récupérées
-
+    // Print the collected information
     printf("Titre de la chanson : %s\n", song.title);
     printf("Nombre de tick par minute : %d\n", song.tpm);
     printf("Nombre de Ticks : %d\n", song.nTicks);
@@ -108,18 +97,16 @@ int test_ams() {
                song.tickTab[i].note[2],
                song.tickTab[i].note[3]);
     }
-
-
     return 0;
 }
 
 /**
  * creation of an electronic partition (<chanson>.ams) from a simplify partition (<chanson>.txt)
- * to make this create
  * @param txtFileName
  * @param amsFileName :
  */
 void createAMS(char* txtFileName, char* amsFileName){
+    /* Open the files */
     FILE * from = NULL;
     FILE * to = NULL;
 
@@ -136,37 +123,29 @@ void createAMS(char* txtFileName, char* amsFileName){
 
     char buffer[MAX_SIZE_LINE];
 
-    /* get the title from the txt file to the ams file*/
+    /* Get the title from the txt file to the ams file*/
     fgets(buffer, MAX_SIZE_TITLE, from);
     fputs(buffer, to);
 
-    /* get the tempo of the music*/
+    /* Get the tempo of the music*/
     fgets(buffer, MAX_SIZE_LINE, from);
     fputs(buffer, to);
     fputs("\r\n", to);
 
-    /* line break*/
+    /* Line break*/
     fgets(buffer, MAX_SIZE_LINE, from);
 
-
-    char numeros[MAX_SIZE_LINE];
-    sprintf(numeros,"    ");
+    /* Create the numbered  line in the top of the ams table */
+    char numbers[MAX_SIZE_LINE];
+    sprintf(numbers,"    ");
     for (int i=1;i<=60;i++){
-        sprintf(numeros+strlen(numeros), "%02d ",i);
+        sprintf(numbers+strlen(numbers), "%02d ",i);
     }
-    sprintf(numeros+strlen(numeros),"\r\n");
-    fputs(numeros,to);
+    sprintf(numbers+strlen(numbers),"\r\n"); // Essential at the end of line
+    fputs(numbers,to);
 
-    //fin fonction
-    char tableau_ticks[MAX_NUMBER_TICKS][60];
-    for (int i=0;i<MAX_NUMBER_TICKS;i++){
-        for (int j=0;j<60;j++){
-            tableau_ticks[i][j]=' ';
-        }
-    }
 
-    /* The table with the notes*/
-    /* notes:
+    /* Help for notes:
         A = 10
         B = 12
         C = 1
@@ -176,13 +155,14 @@ void createAMS(char* txtFileName, char* amsFileName){
         G = 8
     */
 
-    int tab_notes[7] = {10,12,1,3,4,6,8};
-    int tab_oct[5] = {0, 12, 24, 36, 48};
+    int tab_notes[7] = {10,12,1,3,4,6,8}; // Values of note
+    int tab_oct[5] = {0, 12, 24, 36, 48}; // Value for the octave
 
     /* case to put in the table*/
     char nligne[6] = "000|";
     char buf_cpy[MAX_SIZE_LINE];
 
+    // Initialise an empty table
     int tab_lignes[MAX_SIZE_LINE][60];
     for(int i=0; i<MAX_SIZE_LINE; i++){
         for(int j=0; j<60; j++){
@@ -190,8 +170,8 @@ void createAMS(char* txtFileName, char* amsFileName){
         }
     }
 
+    /* Fill the table with the notes*/
     int ligne = 0;
-
 
     while(fgets(buffer, MAX_SIZE_LINE, from)){
 
@@ -262,10 +242,10 @@ void createAMS(char* txtFileName, char* amsFileName){
 
         }
     }
-    /* Fill the table in the ams file*/
 
+    /* Fill the table in the ams file*/
     for(int i=0; i<ligne; i++){
-        /* Put the ligne number at the beginning of the ligne*/
+        /* Put the line number at the beginning of the line*/
         sprintf(nligne, "%03d|", i+1);
         fputs(nligne, to);
 
@@ -275,7 +255,6 @@ void createAMS(char* txtFileName, char* amsFileName){
             }
             else if (tab_lignes[i][j] == 2){
                 fputs("x |", to);
-                //printf("ajout case 2 au coordonées %d %d\n", i,j);
             }else{
                 fputs("  |", to);
             }

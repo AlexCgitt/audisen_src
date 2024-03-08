@@ -14,20 +14,16 @@
 
 /**
  * Create an init frame shaped like #<content>*<checksum><CR><LF>
- * @param mySong
- * @param frame
+ * @param mySong : a struct with song information
+ * @param frame : the init frame to complete
  */
 void createInitFrame(s_song mySong, char* frame){
     char content[INIT_FRAME_MAX_SIZE];
-    //char title[]="";
-
-    //strtolower(title, mySong.title);
 
     sprintf(content,"%s,%d,%d", mySong.title, mySong.tpm, mySong.nTicks);
 
-
+    /* Calculation of the checksum */
     int checksum = 0;
-
     for(int i=0; i<strlen(content); i++){
         checksum ^= content[i] ;
     }
@@ -38,21 +34,20 @@ void createInitFrame(s_song mySong, char* frame){
     sprintf(frame, "#%s*%02x\r\n", content, checksum);
 
     //printf("%s\n", frame);
-
 }
 
 /**
  * Create a tick frame shaped like #<mode>,<accent>,<note1>,<note2>,<note3>,<note4>*<checksum><CR><LF>
- * @param myTick
- * @param frame
+ * @param myTick : a struct with tick
+ * @param frame : the tick frame to complete
  */
 void createTickFrame(s_tick myTick, char* frame){
     char content[TICK_FRAME_SIZE];
 
     sprintf(content,"0,%d,%02d,%02d,%02d,%02d", myTick.accent, myTick.note[0], myTick.note[1], myTick.note[2], myTick.note[3]);
 
+    /* Calculation of the checksum */
     int checksum = 0;
-
     for(int i=0; i< strlen(content); i++){
         checksum ^= content[i] ;
     }
@@ -67,6 +62,9 @@ void createTickFrame(s_tick myTick, char* frame){
 }
 
 
+/**
+ * Test to create frames
+ */
 void test_frame(){
     printf("debut du test frame\n");
 
