@@ -9,6 +9,10 @@
 #include "define.h"
 #include "autotests.h"
 
+/**
+ * Remove \r in a string
+ * @param str
+ */
 void remove_r(char *str) {
     char *src, *dst;
     for (src = dst = str; *src != '\0'; src++) {
@@ -18,6 +22,11 @@ void remove_r(char *str) {
     *dst = '\0';
 }
 
+/**
+ * Create a frm file with all the frame songs
+ * @param ma_playliste
+ * @param new_playlist_frm
+ */
 void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm) {
 
     // start with frm open in write mode
@@ -50,16 +59,18 @@ void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm) {
         //printf("%d", Mysong.tpm);
         if (strlen(Mysong.title) != 0) {
             Mysong.title[strlen(Mysong.title)-1] = '\0';
-            //recuperation of init frame
+
+            //Create init frame
             createInitFrame(Mysong, content);
             remove_r(content);
             fprintf(frm, "%s", content);
+
+            // Create ticks frame
             for (int i = 0; i < Mysong.nTicks; i++) {
                 createTickFrame(Mysong.tickTab[i], contentick);
                 remove_r(contentick);
                 fprintf(frm, "%s", contentick);
             }
-
         }
     }
 }
@@ -77,11 +88,10 @@ int main(){
     printf("\n\n");
 
     // Test work well on Margot's mac but not on Alexandre's computer
+    createAMS("bohemian_rhapsody.txt", "test.ams");
     testCreateAMS();
     test_ams("test.ams");
     printf("\n\n");
-
-
 
     return 0;
 }

@@ -25,7 +25,7 @@ void createInitFrame(s_song mySong, char* frame){
     /* Calculation of the checksum */
     int checksum = 0;
     for(int i=0; i<strlen(content); i++){
-        checksum ^= content[i] ;
+        checksum ^= content[i];
     }
 
     //printf("Le checksum =>\n");

@@ -13,7 +13,6 @@
  * @param filename : the path to the filename
  * @return pf
  */
-
 FILE* initAMP(char* filename){
     FILE * pf = NULL;
     pf = fopen(filename, "r");
@@ -37,6 +36,7 @@ char * strtolower(char * dest, const char * src ) {
     return result;
 }
 
+
 /**
  * Read the amp file to the end and put the song name in a formatted way
  * space, apostrophe and special character with an '_'
@@ -44,7 +44,6 @@ char * strtolower(char * dest, const char * src ) {
  * @param pf : the open file
  * @param song_filename
  */
-
 void readAMP(FILE* pf, char * song_filename){
     char chaine[MAX_SIZE_TITLE] = "";
 
@@ -59,7 +58,7 @@ void readAMP(FILE* pf, char * song_filename){
             strncat(without_caract, &chaine[i], 1);
         } else {
             if (without_caract[0] != '\0' && without_caract[strlen(without_caract) - 1] != '_') {
-                strncat(without_caract, "_", 1);
+                strncat(without_caract, "_",1);
             }
         }
     }
@@ -70,9 +69,6 @@ void readAMP(FILE* pf, char * song_filename){
     //printf("%s", song_filename);
     strcat(song_filename,".ams");
 }
-
-
-
 
 
 /**
