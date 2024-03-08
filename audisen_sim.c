@@ -69,25 +69,18 @@ int main(){
     printf("Demarrage du projet AUDISEN\n");
 
 
-    //test_amp();
+    testReadAMP();
+    printf("\n\n");
+    testFrame();
+    printf("\n\n");
+    testReadAMS();
+    printf("\n\n");
 
-    //test_ams();
+    // Test work well on Margot's mac but not on Alexandre's computer
+    testCreateAMS();
+    test_ams("test.ams");
+    printf("\n\n");
 
-    //test_frame();
-
-    //testFrame();
-
-    //testReadAMP();
-
-   //createFRM_readPlaylist("ma_playlist.amp", "new.frm");
-
-
-    createAMS("Tetris.txt", "Tetris.ams");
-    createFRM_readPlaylist("ma_playlist.amp", "new.frm");
-
-    //testCreateAMS();
-    //test_ams();
-    //test_ams();
 
 
     return 0;
