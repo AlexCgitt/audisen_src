@@ -9,7 +9,7 @@
 
 /**
  * Init the usb port with define data
- * @return
+ * @return ftHandle :  handle of the device
  */
 FT_HANDLE initUSB(){
     FT_HANDLE ftHandle;
@@ -59,7 +59,7 @@ FT_HANDLE initUSB(){
 
 /**
  * Close the usb port
- * @param ftHandle : port information
+ * @param ftHandle : handle of the device
  */
 void closeUSB(FT_HANDLE ftHandle){
         FT_Close(ftHandle);
@@ -68,7 +68,7 @@ void closeUSB(FT_HANDLE ftHandle){
 /**
  * Push a frame on the stm32 card with an usb port for the project
  * @param frame : the frame we want to push
- * @param ftHandle :
+ * @param ftHandle : handle of the device
  */
 void writeUSB(char* frame, FT_HANDLE ftHandle){
     FT_STATUS ftStatus;
