@@ -21,9 +21,8 @@ void remove_r(char *str) {
     }
     *dst = '\0';
 }
-
 /**
- * Create a frm file with all the frame songs
+ *
  * @param ma_playliste
  * @param new_playlist_frm
  */
@@ -59,18 +58,16 @@ void createFRM_readPlaylist(char* ma_playliste, char* new_playlist_frm) {
         //printf("%d", Mysong.tpm);
         if (strlen(Mysong.title) != 0) {
             Mysong.title[strlen(Mysong.title)-1] = '\0';
-
-            //Create init frame
+            //recuperation of init frame
             createInitFrame(Mysong, content);
             remove_r(content);
             fprintf(frm, "%s", content);
-
-            // Create ticks frame
             for (int i = 0; i < Mysong.nTicks; i++) {
                 createTickFrame(Mysong.tickTab[i], contentick);
                 remove_r(contentick);
                 fprintf(frm, "%s", contentick);
             }
+
         }
     }
 }
@@ -80,18 +77,23 @@ int main(){
     printf("Demarrage du projet AUDISEN\n");
 
 
-    testReadAMP();
-    printf("\n\n");
+    //testReadAMP();
+    //printf("\n\n");
+    /*
     testFrame();
     printf("\n\n");
     testReadAMS();
     printf("\n\n");
+     */
 
     // Test work well on Margot's mac but not on Alexandre's computer
-    createAMS("bohemian_rhapsody.txt", "test.ams");
+    /*
     testCreateAMS();
     test_ams("test.ams");
     printf("\n\n");
+    */
+    createFRM_readPlaylist("Playlist.amp", "new.frm");
+
 
     return 0;
 }
